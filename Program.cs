@@ -25,7 +25,7 @@ namespace ConsoleApp1
             shoppingCart2.PrintReceipt();
 
 
-            // Test2 
+            // Test2  
             Console.WriteLine($"{Environment.NewLine} input 3:");
             var shoppingCart23 = new ShoppingCart();
             shoppingCart23.AddProduct(new DefaultProduct("imported bottle of perfume", 27.99m, 1, true));
