@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -47,24 +47,25 @@ namespace ConsoleApp1
         public decimal CalculateProductTotalPrice()
         {
             var productPrice = CalculateProductPrice();
-            var totalPrice = productPrice + CalculateSalesTax();
+            var rate = GetTotalTaxRate();
 
             // 进口商品
             if (IsImported)
             {
                 // 增加进口税
-                var importTax = Math.Round(productPrice * ImportTaxRate / 100 ,2, MidpointRounding.AwayFromZero);
-                totalPrice = totalPrice + importTax;
+                rate = rate + ImportTaxRate;
             }
 
-            return totalPrice;
+            var tax = productPrice * rate / 100;
+            tax = Math.Round(Math.Ceiling(tax / 0.05m) * 0.05m, 2);
+            return productPrice + tax;
         }
 
         /// <summary>
-        /// 计算商品销售税=数量* 单价* 销售税率
+        /// 获取税率
         /// </summary>
         /// <returns></returns>
-        public abstract decimal CalculateSalesTax();
+        public abstract decimal GetTotalTaxRate();
     }
 
 
@@ -83,7 +84,7 @@ namespace ConsoleApp1
 
         int salesTaxRate = 0; // 基本销售税;
 
-        public override decimal CalculateSalesTax()
+        public override decimal GetTotalTaxRate()
         {
             return salesTaxRate;
         }
@@ -105,9 +106,9 @@ namespace ConsoleApp1
         int salesTaxRate = 10; // 基本销售税;
 
 
-        public override decimal CalculateSalesTax()
+        public override decimal GetTotalTaxRate()
         {
-            return Math.Round(CalculateProductPrice() * salesTaxRate/100 ,2, MidpointRounding.AwayFromZero);
+            return salesTaxRate;
         }
     }
 }
