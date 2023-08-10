@@ -16,6 +16,10 @@ namespace ConsoleApp1
             Products = new List<Product>();
         }
 
+        /// <summary>
+        /// 购物车增加商品
+        /// </summary>
+        /// <param name="product"></param>
         public void AddProduct(Product product)
         {
             Console.WriteLine($"{product.Num} {product.Name} at {string.Format("{0:0.00}", product.Price)}");
@@ -23,7 +27,30 @@ namespace ConsoleApp1
         }
 
         /// <summary>
-        /// 计算商品原始价格
+        /// 购物车增加商品
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="price"></param>
+        /// <param name="num"></param>
+        /// <param name="isImported"></param>
+        /// <param name="productType"></param>
+        public void AddProduct(string name, decimal price, int num, bool isImported, ProductType productType)
+        {
+            Product product;
+            if (productType == ProductType.FreeProduct)
+            {
+                product = new FreeTaxProduct(name, price, num, isImported);
+            }
+            else
+            {
+                product = new DefaultProduct(name, price, num, isImported);
+            }
+
+            AddProduct(product);
+        }
+
+        /// <summary>
+        /// 计算总税费
         /// </summary>
         /// <returns></returns>
         public decimal CalculateTotalSalesTax()
