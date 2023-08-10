@@ -6,7 +6,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            // Test1 
+            // Test1 直接实例化商品
             Console.WriteLine("input 1:");
             var shoppingCart1 = new ShoppingCart();
             shoppingCart1.AddProduct(new FreeTaxProduct("book", 12.49m, 1, false));
@@ -25,13 +25,13 @@ namespace ConsoleApp1
             shoppingCart2.PrintReceipt();
 
 
-            // Test2  
+            // Test2  工厂方式创建商品
             Console.WriteLine($"{Environment.NewLine} input 3:");
             var shoppingCart23 = new ShoppingCart();
-            shoppingCart23.AddProduct("imported bottle of perfume", 27.99m, 1, true, ProductType.DefaultProduct);
-            shoppingCart23.AddProduct("bottle of perfume", 18.99m, 1, false, ProductType.DefaultProduct);
-            shoppingCart23.AddProduct("packet of headache pills", 9.75m, 1, false, ProductType.FreeProduct);
-            shoppingCart23.AddProduct("box of imported chocolates", 11.25m, 1, true, ProductType.FreeProduct);
+            shoppingCart23.AddProduct(ProductFactory.BuilderProduct("imported bottle of perfume", 27.99m, 1, true, ProductType.DefaultProduct));
+            shoppingCart23.AddProduct(ProductFactory.BuilderProduct("bottle of perfume", 18.99m, 1, false, ProductType.DefaultProduct));
+            shoppingCart23.AddProduct(ProductFactory.BuilderProduct("packet of headache pills", 9.75m, 1, false, ProductType.FreeProduct));
+            shoppingCart23.AddProduct(ProductFactory.BuilderProduct("box of imported chocolates", 11.25m, 1, true, ProductType.FreeProduct));
             Console.WriteLine($"{Environment.NewLine}output 3:");
             shoppingCart23.PrintReceipt();
         }

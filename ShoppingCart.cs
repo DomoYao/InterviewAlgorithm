@@ -36,16 +36,7 @@ namespace ConsoleApp1
         /// <param name="productType"></param>
         public void AddProduct(string name, decimal price, int num, bool isImported, ProductType productType)
         {
-            Product product;
-            if (productType == ProductType.FreeProduct)
-            {
-                product = new FreeTaxProduct(name, price, num, isImported);
-            }
-            else
-            {
-                product = new DefaultProduct(name, price, num, isImported);
-            }
-
+            Product product = ProductFactory.BuilderProduct(name, price, num, isImported, productType);
             AddProduct(product);
         }
 
